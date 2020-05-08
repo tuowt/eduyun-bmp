@@ -7,10 +7,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Eduyun\Auth\Kernel;
+namespace Eduyun\Cert\Kernel;
 
 use Eduyun\Kernel\Support;
-use Eduyun\Auth\Application;
+use Eduyun\Cert\Application;
 use Eduyun\Kernel\Http\Response;
 use Eduyun\Kernel\Traits\HasHttpRequests;
 use GuzzleHttp\Client;
@@ -30,7 +30,7 @@ class BaseClient
     }
 
     /**
-     * @var \Eduyun\Auth\Application
+     * @var \Eduyun\Cert\Application
      */
     protected $app;
 
@@ -66,39 +66,6 @@ class BaseClient
      * @throws \Eduyun\Kernel\Exceptions\InvalidConfigException
      */
     protected function request($endpoint, $method = 'get', $options = [], $returnResponse = false) {
-        if (empty($this->middlewares)) {
-            $this->registerHttpMiddlewares();
-        }
-
-        $options = array_merge($options, $this->getHeaders());
-
-        if (isset($options['json'])) {
-            $options = array_merge($options['json'], [
-                'appId'     => $this->app->getAppId(),
-                'nonce'     => mt_rand(1000, 10000),
-                'timestamp' => time(),
-            ]);
-            $options['json']['signature'] = Support\generateSign($options['json'], $this->app->getAppKey());
-        }
-        $response = $this->performRequest($endpoint, $method, $options);
-
-        return $returnResponse ? $response : $this->castResponseToType($response, $this->app->config->get('response_type'));
-    }
-
-    /**
-     * Make a API request.
-     *
-     * @param string $endpoint
-     * @param array  $params
-     * @param string $method
-     * @param array  $options
-     * @param bool   $returnResponse
-     *
-     * @return \Psr\Http\Message\ResponseInterface|\Eduyun\Kernel\Support\Collection|array|object|string
-     *
-     * @throws \Eduyun\Kernel\Exceptions\InvalidConfigException
-     */
-    protected function tokenRequest($endpoint, $method = 'get', $options = [], $returnResponse = false) {
         if (empty($this->middlewares)) {
             $this->registerHttpMiddlewares();
         }
@@ -150,9 +117,6 @@ class BaseClient
      * @throws \Eduyun\Kernel\Exceptions\InvalidConfigException
      */
     public function httpPostJson($url, $data = [], $query = []) {
-        $query = array_merge($query, [
-            'accessToken' => $this->app['config']->accessToken,
-        ]);
         return $this->request($url, 'POST', [
             'query' => $query,
             'json'  => $data,
@@ -172,9 +136,9 @@ class BaseClient
      */
     public function tokenHttpPostJson($url, $data = [], $query = []) {
         $query = array_merge($query, [
-            'accessToken' => $this->app['config']->accessToken,
+            'accessToken' => $this->app['auth']->getAccessToken(),
         ]);
-        return $this->tokenRequest($url, 'POST', [
+        return $this->request($url, 'POST', [
             'query' => $query,
             'json'  => $data,
         ]);

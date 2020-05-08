@@ -7,10 +7,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Eduyun\Auth\User;
+namespace Eduyun\Base\User;
 
 use Eduyun\Kernel\Support;
-use Eduyun\Auth\Kernel\BaseClient;
+use Eduyun\Base\Kernel\BaseClient;
 
 class Client extends BaseClient
 {

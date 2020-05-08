@@ -7,9 +7,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Eduyun\Auth\Ticket;
+namespace Eduyun\Base\Ticket;
 
-use Eduyun\Auth\Kernel\BaseClient;
+use Eduyun\Base\Kernel\BaseClient;
 
 class Client extends BaseClient
 {

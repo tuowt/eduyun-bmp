@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Eduyun\Auth\Kernel\Exceptions;
+namespace Eduyun\Cert\Kernel\Exceptions;
 
 use Eduyun\Kernel\Exceptions\Exception;
 

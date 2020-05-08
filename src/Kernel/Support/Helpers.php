@@ -86,14 +86,6 @@ function rsa_public_encrypt($content, $publicKey) {
     return base64_encode($encrypted);
 }
 
-function tokenSign($params, $key) {
-    ksort($params);
-    $accessKeySecret = $key;
-    $stringToSign = implode('', $params);
-
-    return hash_hmac('sha1', $stringToSign, $accessKeySecret);
-}
-
 function generateSign($params, $key) {
     ksort($params);
     $accessKeySecret = $key;

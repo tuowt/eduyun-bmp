@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Eduyun\Auth\Register;
+namespace Eduyun\Base\Auth;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -20,9 +20,8 @@ class ServiceProvider implements ServiceProviderInterface
     /**
      * {@inheritdoc}.
      */
-    public function register(Container $app)
-    {
-        $app['register'] = function ($app) {
+    public function register(Container $app) {
+        $app['auth'] = function ($app) {
             return new Client($app);
         };
     }

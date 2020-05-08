@@ -12,7 +12,8 @@ namespace Eduyun;
 /**
  * Class Factory.
  *
- * @method static \Eduyun\Auth\Application auth(array $config)
+ * @method static \Eduyun\Base\Application base(array $config)
+ * @method static \Eduyun\Cert\Application cert(array $config)
  */
 class Factory
 {

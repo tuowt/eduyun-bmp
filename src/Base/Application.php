@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Eduyun\Auth;
+namespace Eduyun\Base;
 
 use Closure;
 use Eduyun\Kernel\ServiceContainer;
@@ -16,8 +16,9 @@ use Eduyun\Kernel\Support;
 /**
  * Class Application.
  *
- * @property \Eduyun\Auth\User\Client   $user      用户
- * @property \Eduyun\Auth\Ticket\Client $ticket    授权码
+ * @property \Eduyun\Base\User\Client   $user      用户
+ * @property \Eduyun\Base\Ticket\Client $ticket    授权码
+ * @property \Eduyun\Base\Auth\Client   $auth      认证
  */
 class Application extends ServiceContainer
 {
@@ -27,6 +28,7 @@ class Application extends ServiceContainer
     protected $providers = [
         User\ServiceProvider::class,
         Ticket\ServiceProvider::class,
+        Auth\ServiceProvider::class,
     ];
 
     /**

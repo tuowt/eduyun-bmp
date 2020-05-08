@@ -7,10 +7,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Eduyun\Auth\Register;
+namespace Eduyun\Cert\Register;
 
 use Eduyun\Kernel\Support;
-use Eduyun\Auth\Kernel\BaseClient;
+use Eduyun\Cert\Kernel\BaseClient;
 
 class Client extends BaseClient
 {
@@ -22,9 +22,6 @@ class Client extends BaseClient
         $params = [
             'userId'       => $data['userId'],
             'loginAccount' => $data['loginAccount'],
-            'phone'        => $data['phone'],
-            'name'         => $data['name'],
-            'gender'       => $data['gender'],
             'type'         => $data['type'],
             'orgId'        => $data['orgId'],
             'userIdentity' => $data['userIdentity'],
@@ -36,7 +33,16 @@ class Client extends BaseClient
             'city'         => $data['city'],
             'area'         => $data['area'],
         ];
+        if (isset($data['phone']) && $data['phone']) {
+            $params['phone'] = $data['phone'];
+        }
+        if (isset($data['name']) && $data['name']) {
+            $params['name'] = $data['name'];
+        }
+        if (isset($data['gender']) && $data['gender']) {
+            $params['gender'] = $data['gender'];
+        }
 
-        return $this->httpPostJson('cert/independentAppRegister', $params);
+        return $this->tokenHttpPostJson('cert/independentAppRegister', $params);
     }
 }
