@@ -14,41 +14,20 @@ composer require tuowt/eduyun-bmp
 use Eduyun\Factory;
 
 $config = [
-    'bearer'     => 'token', // OAuth2.0获取到的access_token
-    'accessToken' => 'token',// OAuth2.0获取到的access_token
+    'sysCode'     => '0', // 选填
+    'client' => 'ios', //  应用ID
+    'clients' => [
+        'ios'=> ['appId'=>'', 'appKey'=>''],
+        'iot'=> ['appId'=>'', 'appKey'=>'']
+    ]
 ];
 
-$app = Factory::auth($config);
+$app = Factory::base($config);
 ```
 
-### 获取用户信息:
+### 根据Ticket获取用户信息:
 
 ```php
-// 获取用户信息 可选参数 $academicYear = 学年
-$result = $app->user->userinfo($academicYear = null);
-pr($result);
-```
-
-### 用户登出:
-
-```php
-// 必填参数$membercode = 會員代碼, 可选参数 $prodcode = Eduyun 產品代碼
-$result = $app->user->logout($membercode, $prodcode = null);
-pr($result);
-```
-
-### 取得登入使用者授權項目
-
-```php
-// 可选参数 $lite = 0,简化模式;1,一般模式，默认简化模式
-$result = $app->user->permission($lite = 0);
-pr($result);
-```
-
-### 取得班別的學生及同班的老師的信息
-
-```php
-// 必填参数$classid = 班级编号
-$result = $app->student->getStudentsByClass($classid);
+$result = $app->ticket->validated($ticket);
 pr($result);
 ```
