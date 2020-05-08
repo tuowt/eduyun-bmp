@@ -19,6 +19,7 @@ use Eduyun\Kernel\Support;
  * @property \Eduyun\Base\User\Client   $user      用户
  * @property \Eduyun\Base\Ticket\Client $ticket    授权码
  * @property \Eduyun\Base\Auth\Client   $auth      认证
+ * @property \Eduyun\Base\Org\Client    $org       认证
  */
 class Application extends ServiceContainer
 {
@@ -29,6 +30,7 @@ class Application extends ServiceContainer
         User\ServiceProvider::class,
         Ticket\ServiceProvider::class,
         Auth\ServiceProvider::class,
+        Org\ServiceProvider::class,
     ];
 
     /**
