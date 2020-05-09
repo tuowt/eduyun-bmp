@@ -24,6 +24,11 @@ class Client extends BaseClient
             'timeStamp' => time(),
         ];
 
+        $token = $this->app['config']->get("token.{$params['appId']}", 0);
+        if ($token) {
+            return $token;
+        }
+
         $sign = $this->_generateSign($params);
         $params['keyInfo'] = $sign;
         if (!$sysCode) {
@@ -31,7 +36,12 @@ class Client extends BaseClient
         }
         $params['sysCode'] = $sysCode;
 
-        return $this->httpPostJson('apigateway/getAccessToken', $params);
+        $result = $this->httpPostJson('apigateway/getAccessToken', $params);
+        if (isset($result['retCode']) && $result['retCode'] == '000000') {
+            $token = $result['data']['accessToken'];
+            $this->app['config']->set("token.{$params['appId']}", $token);
+        }
+        return $token;
     }
 
     protected function _generateSign($params) {
