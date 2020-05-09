@@ -19,7 +19,7 @@ use Eduyun\Kernel\Support;
  * @property \Eduyun\Base\User\Client   $user      用户
  * @property \Eduyun\Base\Ticket\Client $ticket    授权码
  * @property \Eduyun\Base\Auth\Client   $auth      认证
- * @property \Eduyun\Base\Org\Client    $org       认证
+ * @property \Eduyun\Base\Org\Client    $org       机构
  */
 class Application extends ServiceContainer
 {

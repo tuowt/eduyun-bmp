@@ -17,6 +17,7 @@ use Eduyun\Kernel\Support;
  * Class Application.
  *
  * @property \Eduyun\Cert\Register\Client $register      用户
+ * @property \Eduyun\Base\Auth\Client     $auth          认证
  */
 class Application extends ServiceContainer
 {
@@ -25,6 +26,7 @@ class Application extends ServiceContainer
      */
     protected $providers = [
         Register\ServiceProvider::class,
+        Auth\ServiceProvider::class,
     ];
 
     /**
